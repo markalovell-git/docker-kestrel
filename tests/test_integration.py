@@ -2,7 +2,7 @@
 
 import pytest
 from testcontainers.core.container import DockerContainer
-from testcontainers.core.waiting_utils import wait_for_logs
+from testcontainers.core.wait_strategies import LogMessageWaitStrategy
 
 from docker_kestrel.tools.diagnose_container import diagnose_container, DiagnoseContainerInput
 from docker_kestrel.tools.resource_overview import resource_overview, ResourceOverviewInput
@@ -13,8 +13,7 @@ from docker_kestrel.tools.network_map import network_map, NetworkMapInput
 @pytest.fixture(scope="module")
 def running_container():
     """Start a simple long-running container for integration tests."""
-    with DockerContainer("alpine:latest").with_command("sh -c 'while true; do echo alive; sleep 5; done'") as container:
-        wait_for_logs(container, "alive", timeout=15)
+    with DockerContainer("alpine:latest").with_command("sh -c 'while true; do echo alive; sleep 5; done'").waiting_for(LogMessageWaitStrategy("alive")) as container:
         yield container
 
 
