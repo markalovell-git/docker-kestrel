@@ -4,61 +4,21 @@ An MCP server that provides diagnostic intelligence for Docker environments. No 
 
 Connect docker-kestrel to Claude Desktop, Claude Code, Cursor, or any MCP-compatible client and ask plain-English questions about your containers.
 
+## Why "kestrel"?
+
+A kestrel is a small falcon known for hovering perfectly still in the wind while its eyes lock onto a target below. It watches — it doesn't swoop. docker-kestrel works the same way: it hovers over your containers and tells you exactly what's wrong, without touching anything.
+
 ## What it does
 
 Existing Docker MCP servers wrap CLI commands (`start`, `stop`, `list`). docker-kestrel *reasons* about what's going on:
 
 - **`diagnose_container`** — full diagnostic report: OOM detection, crash loop detection, health check analysis, resource snapshot, log summary
 - **`resource_overview`** — ranked resource usage across all containers with anomaly flags
-- **`network_map`** — Docker network topology, container IPs, port bindings, conflict detection
+- **`network_map`** — Docker network topology, container IPs, port bindings
 - **`compose_drift`** — compare a `docker-compose.yml` against running containers to find drift
 - **`log_analysis`** — structured log analysis: error counts, pattern grouping, first/last occurrence
 
 ## Quick start
-
-> **Not yet published to PyPI.** Use the local-path instructions below until the package is released. The PyPI instructions are here for reference post-publish.
-
-### Before PyPI publish (local install)
-
-```bash
-git clone https://github.com/markalovell-git/docker-kestrel
-cd docker-kestrel
-uv sync
-```
-
-**Claude Desktop** — `~/.config/claude/claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "docker-kestrel": {
-      "command": "uvx",
-      "args": ["--from", "/path/to/docker-kestrel", "docker-kestrel"]
-    }
-  }
-}
-```
-
-**Claude Code:**
-
-```bash
-claude mcp add docker-kestrel uvx --from /path/to/docker-kestrel docker-kestrel
-```
-
-**Cursor** — `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per-project):
-
-```json
-{
-  "mcpServers": {
-    "docker-kestrel": {
-      "command": "uvx",
-      "args": ["--from", "/path/to/docker-kestrel", "docker-kestrel"]
-    }
-  }
-}
-```
-
-### After PyPI publish
 
 ```bash
 # Install with uv

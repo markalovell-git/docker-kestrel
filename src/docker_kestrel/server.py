@@ -13,6 +13,14 @@ from .tools.log_analysis import log_analysis, LogAnalysisInput
 
 app = Server("docker-kestrel")
 
+_REGISTRY: dict[str, tuple] = {
+    "diagnose_container": (diagnose_container, DiagnoseContainerInput),
+    "resource_overview":  (resource_overview, ResourceOverviewInput),
+    "network_map":        (network_map, NetworkMapInput),
+    "compose_drift":      (compose_drift, ComposeDriftInput),
+    "log_analysis":       (log_analysis, LogAnalysisInput),
+}
+
 
 @app.list_tools()
 async def list_tools() -> list[types.Tool]:
@@ -39,7 +47,7 @@ async def list_tools() -> list[types.Tool]:
             name="network_map",
             description=(
                 "Enumerates Docker networks and their connected containers with IPs and aliases. "
-                "Identifies port bindings and conflicts. "
+                "Identifies port bindings. "
                 "Use this to debug container-to-container connectivity issues."
             ),
             inputSchema=NetworkMapInput.model_json_schema(),
@@ -68,18 +76,11 @@ async def list_tools() -> list[types.Tool]:
 @app.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
     try:
-        if name == "diagnose_container":
-            result = await diagnose_container(DiagnoseContainerInput(**arguments))
-        elif name == "resource_overview":
-            result = await resource_overview(ResourceOverviewInput(**arguments))
-        elif name == "network_map":
-            result = await network_map(NetworkMapInput(**arguments))
-        elif name == "compose_drift":
-            result = await compose_drift(ComposeDriftInput(**arguments))
-        elif name == "log_analysis":
-            result = await log_analysis(LogAnalysisInput(**arguments))
-        else:
+        if name not in _REGISTRY:
             result = {"error": f"Unknown tool: {name}"}
+        else:
+            fn, InputModel = _REGISTRY[name]
+            result = await fn(InputModel(**arguments))
     except Exception as e:
         result = {"error": f"Tool execution failed: {type(e).__name__}: {e}"}
 

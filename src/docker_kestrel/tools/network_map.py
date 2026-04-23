@@ -18,7 +18,6 @@ async def network_map(args: NetworkMapInput) -> dict:
     except DockerClientError as e:
         return {"error": str(e)}
 
-    # Collect port bindings across all running containers to detect conflicts
     port_bindings: dict[str, list[str]] = {}
     try:
         containers = client.list_containers(all=False)
@@ -33,10 +32,6 @@ async def network_map(args: NetworkMapInput) -> dict:
                     port_bindings.setdefault(host_port, []).append(c.name)
     except Exception:
         pass
-
-    port_conflicts = {
-        hp: names for hp, names in port_bindings.items() if len(names) > 1
-    }
 
     network_map_data = []
     for network in networks:
@@ -70,7 +65,6 @@ async def network_map(args: NetworkMapInput) -> dict:
     return {
         "networks": network_map_data,
         "port_bindings": port_bindings,
-        "port_conflicts": port_conflicts,
         "notes": (
             "Containers on the same Docker network can reach each other by container name. "
             "Containers on different networks cannot communicate unless explicitly connected."
