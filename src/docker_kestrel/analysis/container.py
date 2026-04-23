@@ -15,13 +15,13 @@ EXIT_CODE_MAP = {
 }
 
 LOG_ERROR_PATTERNS = [
-    (re.compile(r"\bERROR\b", re.IGNORECASE), "error"),
-    (re.compile(r"\bWARN(ING)?\b", re.IGNORECASE), "warning"),
-    (re.compile(r"\bCRITICAL\b", re.IGNORECASE), "critical"),
+    (re.compile(r"(?<![a-zA-Z0-9_-])ERROR(?![a-zA-Z0-9_-])", re.IGNORECASE), "error"),
+    (re.compile(r"(?<![a-zA-Z0-9_-])WARN(ING)?(?![a-zA-Z0-9_-])", re.IGNORECASE), "warning"),
+    (re.compile(r"(?<![a-zA-Z0-9_-])CRITICAL(?![a-zA-Z0-9_-])", re.IGNORECASE), "critical"),
     (re.compile(r"Traceback \(most recent call last\)", re.IGNORECASE), "python_traceback"),
-    (re.compile(r"\bpanic:", re.IGNORECASE), "go_panic"),
-    (re.compile(r"\bfatal\b", re.IGNORECASE), "fatal"),
-    (re.compile(r"\bexception\b", re.IGNORECASE), "exception"),
+    (re.compile(r"(?<![a-zA-Z0-9_-])panic:", re.IGNORECASE), "go_panic"),
+    (re.compile(r"(?<![a-zA-Z0-9_-])fatal(?![a-zA-Z0-9_-])", re.IGNORECASE), "fatal"),
+    (re.compile(r"(?<![a-zA-Z0-9_-])exception(?![a-zA-Z0-9_-])", re.IGNORECASE), "exception"),
     (re.compile(r"OOMKilled|oom.kill", re.IGNORECASE), "oom"),
 ]
 

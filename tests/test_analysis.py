@@ -275,6 +275,16 @@ def test_analyze_logs_case_insensitive():
     assert result["issues_found"]["error"]["count"] == 2
 
 
+def test_analyze_logs_no_false_positive_hyphenated():
+    result = analyze_logs("{ bf-error-rate: 0.01 }")
+    assert "error" not in result["issues_found"]
+
+
+def test_analyze_logs_no_false_positive_warning_prefix():
+    result = analyze_logs("forewarning: this is not a log level keyword")
+    assert "warning" not in result["issues_found"]
+
+
 def test_analyze_logs_critical():
     result = analyze_logs("CRITICAL: disk full")
     assert "critical" in result["issues_found"]
