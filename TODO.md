@@ -9,4 +9,4 @@
 - [x] Remove the "Not yet published to PyPI" warning from README.md
 - [x] Remove the "Before PyPI publish (local install)" section from README.md
 - [x] Keep only the "After PyPI publish" instructions and drop that heading too (it becomes the default)
-- [ ] Update `~/.cursor/mcp.json` to use `["docker-kestrel"]` instead of `["--from", "/path/to/...", "docker-kestrel"]`
+- [x] Update `~/.cursor/mcp.json` to use `["docker-kestrel"]` instead of `["--from", "/path/to/...", "docker-kestrel"]`
