@@ -16,6 +16,50 @@ Existing Docker MCP servers wrap CLI commands (`start`, `stop`, `list`). docker-
 
 ## Quick start
 
+> **Not yet published to PyPI.** Use the local-path instructions below until the package is released. The PyPI instructions are here for reference post-publish.
+
+### Before PyPI publish (local install)
+
+```bash
+git clone https://github.com/markalovell-git/docker-kestrel
+cd docker-kestrel
+uv sync
+```
+
+**Claude Desktop** — `~/.config/claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "docker-kestrel": {
+      "command": "uvx",
+      "args": ["--from", "/path/to/docker-kestrel", "docker-kestrel"]
+    }
+  }
+}
+```
+
+**Claude Code:**
+
+```bash
+claude mcp add docker-kestrel uvx --from /path/to/docker-kestrel docker-kestrel
+```
+
+**Cursor** — `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per-project):
+
+```json
+{
+  "mcpServers": {
+    "docker-kestrel": {
+      "command": "uvx",
+      "args": ["--from", "/path/to/docker-kestrel", "docker-kestrel"]
+    }
+  }
+}
+```
+
+### After PyPI publish
+
 ```bash
 # Install with uv
 uv tool install docker-kestrel
@@ -24,9 +68,7 @@ uv tool install docker-kestrel
 uvx docker-kestrel
 ```
 
-### Claude Desktop
-
-Add to `~/.config/claude/claude_desktop_config.json`:
+**Claude Desktop** — `~/.config/claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -39,15 +81,13 @@ Add to `~/.config/claude/claude_desktop_config.json`:
 }
 ```
 
-### Claude Code
+**Claude Code:**
 
 ```bash
 claude mcp add docker-kestrel uvx docker-kestrel
 ```
 
-### Cursor
-
-Add to `.cursor/mcp.json` in your project, or `~/.cursor/mcp.json` for global access:
+**Cursor** — `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per-project):
 
 ```json
 {
