@@ -4,10 +4,10 @@ import pytest
 from testcontainers.core.container import DockerContainer
 from testcontainers.core.waiting_utils import wait_for_logs
 
-from dockerscope.tools.diagnose_container import diagnose_container, DiagnoseContainerInput
-from dockerscope.tools.resource_overview import resource_overview, ResourceOverviewInput
-from dockerscope.tools.log_analysis import log_analysis, LogAnalysisInput
-from dockerscope.tools.network_map import network_map, NetworkMapInput
+from docker_kestrel.tools.diagnose_container import diagnose_container, DiagnoseContainerInput
+from docker_kestrel.tools.resource_overview import resource_overview, ResourceOverviewInput
+from docker_kestrel.tools.log_analysis import log_analysis, LogAnalysisInput
+from docker_kestrel.tools.network_map import network_map, NetworkMapInput
 
 
 @pytest.fixture(scope="module")

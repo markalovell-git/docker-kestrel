@@ -1,7 +1,7 @@
 """Unit tests for the analysis layer — no Docker daemon required."""
 
 import pytest
-from dockerscope.analysis.container import (
+from docker_kestrel.analysis.container import (
     analyze_container_state,
     analyze_logs,
     analyze_stats,

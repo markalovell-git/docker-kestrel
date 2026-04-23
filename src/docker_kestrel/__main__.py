@@ -1,7 +1,6 @@
-"""CLI entrypoint for DockerScope MCP server."""
+"""CLI entrypoint for docker-kestrel MCP server."""
 
 import asyncio
-import sys
 
 
 def main():

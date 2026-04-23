@@ -1,12 +1,12 @@
-# DockerScope
+# docker-kestrel
 
 An MCP server that provides diagnostic intelligence for Docker environments. No Prometheus, no Datadog — just the daemon and smart analysis.
 
-Connect DockerScope to Claude Desktop, Claude Code, Cursor, or any MCP-compatible client and ask plain-English questions about your containers.
+Connect docker-kestrel to Claude Desktop, Claude Code, Cursor, or any MCP-compatible client and ask plain-English questions about your containers.
 
 ## What it does
 
-Existing Docker MCP servers wrap CLI commands (`start`, `stop`, `list`). DockerScope *reasons* about what's going on:
+Existing Docker MCP servers wrap CLI commands (`start`, `stop`, `list`). docker-kestrel *reasons* about what's going on:
 
 - **`diagnose_container`** — full diagnostic report: OOM detection, crash loop detection, health check analysis, resource snapshot, log summary
 - **`resource_overview`** — ranked resource usage across all containers with anomaly flags
@@ -18,10 +18,10 @@ Existing Docker MCP servers wrap CLI commands (`start`, `stop`, `list`). DockerS
 
 ```bash
 # Install with uv
-uv tool install dockerscope
+uv tool install docker-kestrel
 
 # Or run directly without installing
-uvx dockerscope
+uvx docker-kestrel
 ```
 
 ### Claude Desktop
@@ -31,9 +31,9 @@ Add to `~/.config/claude/claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "dockerscope": {
+    "docker-kestrel": {
       "command": "uvx",
-      "args": ["dockerscope"]
+      "args": ["docker-kestrel"]
     }
   }
 }
@@ -42,7 +42,7 @@ Add to `~/.config/claude/claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-claude mcp add dockerscope uvx dockerscope
+claude mcp add docker-kestrel uvx docker-kestrel
 ```
 
 ### Cursor
@@ -52,9 +52,9 @@ Add to `.cursor/mcp.json` in your project, or `~/.cursor/mcp.json` for global ac
 ```json
 {
   "mcpServers": {
-    "dockerscope": {
+    "docker-kestrel": {
       "command": "uvx",
-      "args": ["dockerscope"]
+      "args": ["docker-kestrel"]
     }
   }
 }
@@ -73,8 +73,8 @@ Once connected, you can ask your AI client:
 ## Development
 
 ```bash
-git clone https://github.com/markalovell-git/dockerscope
-cd dockerscope
+git clone https://github.com/markalovell-git/docker-kestrel
+cd docker-kestrel
 uv sync --dev
 uv pip install -e .
 

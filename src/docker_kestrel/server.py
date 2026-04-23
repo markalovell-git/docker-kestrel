@@ -1,4 +1,4 @@
-"""DockerScope MCP server — tool registration and entrypoint."""
+"""Docker Kestrel MCP server — tool registration and entrypoint."""
 
 import json
 from mcp.server import Server
@@ -11,7 +11,7 @@ from .tools.network_map import network_map, NetworkMapInput
 from .tools.compose_drift import compose_drift, ComposeDriftInput
 from .tools.log_analysis import log_analysis, LogAnalysisInput
 
-app = Server("dockerscope")
+app = Server("docker-kestrel")
 
 
 @app.list_tools()
